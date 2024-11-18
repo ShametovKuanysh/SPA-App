@@ -30,7 +30,7 @@ jobs:
       run: |
         cd spaapp
         npm install
-        npm run build -- --configuration production
+        npm run build
         cd ..
 
     # 5. Копирование билда Angular в клиентскую папку
