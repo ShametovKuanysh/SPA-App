@@ -60,6 +60,8 @@ app.post('/register', async (req, res) => {
     }
 })
 
+console.log('Serving static files from:', path.resolve(__dirname, '../spabuild'));
+
 app.use(express.static(path.join(__dirname, '../spabuild/spaapp/browser')));
 
 // Перехват всех маршрутов и возврат index.html (Angular SPA)
