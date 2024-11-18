@@ -1,0 +1,34 @@
+<div>
+    <h3>Register</h3>
+    <form (ngSubmit)="onRegister()" [formGroup]="registerForm">
+        <mat-form-field class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter email" formControlName="email" type="email" [required]="true">
+            @if (email?.invalid && (email?.dirty || email?.touched)) {
+                @if (email?.errors?.['required']){
+                    <mat-error>Required field</mat-error>
+                }
+                @if (email?.errors?.['email']){
+                    <mat-error>Please enter valid email</mat-error>
+                }
+            }
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Enter Password" formControlName="password" type="password" autocomplete="on" [required]="true">
+            @if (password?.errors && password?.invalid && (password?.dirty || password?.touched)) {
+                @if (password?.errors?.['required']){
+                    <mat-error>Required field</mat-error>
+                }
+                @if (password?.errors?.['minlength']){
+                    <mat-error>Minimum length - 6 symbols</mat-error>
+                }
+            }
+        </mat-form-field>
+
+        @if (errText) {
+            <mat-error>{{errText}}</mat-error>
+        }
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+    </form>
+</div>

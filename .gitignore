@@ -1,0 +1,9 @@
+# Исключаем сборку Angular
+spaapp/dist/
+spabuild/
+
+# Исключаем зависимости Node.js
+node_modules/
+
+# Исключаем окружение сервера
+spaback/.env
