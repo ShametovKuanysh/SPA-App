@@ -1,0 +1,50 @@
+name: CI/CD for Angular + Express
+
+on:
+  push:
+    branches:
+      - main  # Триггер на каждое обновление ветки main
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout кода
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Установка Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    # 3. Установка зависимостей
+    - name: Install dependencies
+      run: npm install
+
+    # 4. Сборка Angular-приложения
+    - name: Build Angular app
+      run: |
+        cd client
+        npm install
+        npm run build -- --configuration production
+        cd ..
+
+    # 5. Копирование билда Angular в клиентскую папку
+    - name: Move Angular build to client
+      run: |
+        rm -rf client && mv dist/[your-project-name] client
+
+    # 6. Деплой на Render через Git Push
+    - name: Deploy to Render
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      run: |
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "Your Name"
+        git add -A
+        git commit -m "Auto-deploy from GitHub Actions"
+        git push render main
