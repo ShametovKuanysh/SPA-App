@@ -62,11 +62,11 @@ app.post('/register', async (req, res) => {
 
 console.log('Serving static files from:', path.resolve(__dirname, '../spabuild'));
 
-app.use(express.static(path.join(__dirname, '../spabuild/spaapp/browser')));
+app.use(express.static(path.join(__dirname, '../spabuild/browser')));
 
 // Перехват всех маршрутов и возврат index.html (Angular SPA)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../spabuild/spaapp/browser', 'index.html'));
+  res.sendFile(path.join(__dirname, '../spabuild/browser', 'index.html'));
 });
 
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
